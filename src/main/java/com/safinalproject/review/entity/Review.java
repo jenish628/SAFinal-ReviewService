@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 
@@ -20,7 +21,9 @@ public class Review implements Serializable {
     private Long customerId;
     private String user;
     private Long vin;
+    @Size(min = 1, max = 10, message = "Between the range 1-10")
     private int rating;
+    @NotEmpty(message = "Between the range 1-10")
     private String comment;
     private Long average;
 

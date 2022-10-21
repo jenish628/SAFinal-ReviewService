@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.Validation;
+
 @RestController
 @RequestMapping("/api/review")
 public class ReviewController {
@@ -24,8 +27,10 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addReview(@RequestBody ReviewDto reviewDto){
-        return ResponseEntity.ok(reviewService.saveReview(reviewDto));
+    public ResponseEntity<?> addReview(@Valid @RequestBody ReviewDto reviewDto){
+        reviewService.saveReview(reviewDto);
+        return ResponseEntity.ok("validation");
+
     }
 
     @GetMapping("/average")
