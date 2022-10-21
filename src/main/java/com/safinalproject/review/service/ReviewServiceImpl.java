@@ -4,6 +4,7 @@ import com.safinalproject.review.dto.ReviewDto;
 import com.safinalproject.review.dto.ReviewResponseDto;
 import com.safinalproject.review.dto.ReviewsForVehicle;
 import com.safinalproject.review.entity.Review;
+import com.safinalproject.review.exception.ReviewNotFoundException;
 import com.safinalproject.review.mapper.ReviewMapper;
 import com.safinalproject.review.repository.ReviewRepository;
 import com.safinalproject.review.util.AppUtil;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,7 +68,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<ReviewsForVehicle> getReviewsByVehicleId(Long vin) {
+
+        Optional<Review> review = reviewRepository.findByVin(vin);
+
+        if(review.isEmpty()){
+            throw new ReviewNotFoundException();
+        }
         return toReviewListDto(reviewRepository.getAllByVin(vin));
+
     }
 
     @Override

@@ -27,4 +27,12 @@ public class Review implements Serializable {
     private String comment;
     private Long average;
 
+    public Review(Long customerId, String user, Long vin, int rating, String comment) {
+        this.customerId = customerId;
+        this.user = user;
+        this.vin = vin;
+        this.rating = rating;
+        this.comment = comment;
+
+    }
 }

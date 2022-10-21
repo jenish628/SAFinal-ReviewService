@@ -12,7 +12,7 @@ public interface ReviewService {
 
     Long saveReview(ReviewDto reviewDto);
 
-    Long getTheAverage();
-
     List<ReviewsForVehicle> getReviewsByVehicleId(Long vin);
+
+        Long getTheAverage();
 }
