@@ -6,10 +6,11 @@ import org.bson.types.ObjectId;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-public class ReviewDto {
+public class ReviewDto implements Serializable {
 
     private String id;
     private Long customerId;

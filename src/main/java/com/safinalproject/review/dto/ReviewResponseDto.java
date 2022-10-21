@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ReviewResponseDto {
+public class ReviewResponseDto implements Serializable {
     private String id;
     private Long customerId;
     private String user;

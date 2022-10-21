@@ -7,13 +7,14 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class Review implements Serializable {
     @Id
     private String id;
     private Long customerId;

@@ -7,6 +7,8 @@ import com.safinalproject.review.entity.Review;
 import com.safinalproject.review.mapper.ReviewMapper;
 import com.safinalproject.review.repository.ReviewRepository;
 import com.safinalproject.review.util.AppUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    @Cacheable("reviews")
     public List<ReviewResponseDto> getAll() {
 
         return  reviewRepository
@@ -35,6 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    @CacheEvict(value = "reviews", allEntries = true )
     public Long saveReview(ReviewDto reviewDto) {
         if (reviewDto.getCustomerId()== null){
             reviewDto.setCustomerId(AppUtil.getCustomerId());
