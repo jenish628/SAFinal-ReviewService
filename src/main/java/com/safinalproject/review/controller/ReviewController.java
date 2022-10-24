@@ -10,9 +10,10 @@ import javax.validation.Valid;
 import javax.validation.Validation;
 
 @RestController
-@RequestMapping("/api/review")
+@RequestMapping("/api/reviews")
 public class ReviewController {
 
+    @Autowired
     private ReviewService reviewService;
 
 
@@ -30,20 +31,15 @@ public class ReviewController {
     public ResponseEntity<?> addReview(@Valid @RequestBody ReviewDto reviewDto){
         reviewService.saveReview(reviewDto);
         return ResponseEntity.ok("validation");
-
     }
 
     @GetMapping("/average")
     public ResponseEntity<?> getAverage(){
         return ResponseEntity.ok(reviewService.getTheAverage());
-//        return ResponseEntity.ok(2);
     }
-
 
     @GetMapping("/vehicle/{vin}")
     public ResponseEntity<?> getVehicleById(@PathVariable Long vin){
         return ResponseEntity.ok(reviewService.getReviewsByVehicleId(vin));
     }
-
-
 }
