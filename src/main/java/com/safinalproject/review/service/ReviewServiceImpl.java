@@ -32,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Cacheable("reviews")
     public List<ReviewResponseDto> getAll() {
 
-        return  reviewRepository
+        return reviewRepository
                 .findAll()
                 .stream()
                 .map(a -> toReviewDto(a))
@@ -40,55 +40,53 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    @CacheEvict(value = "reviews", allEntries = true )
-    public Long saveReview(ReviewDto reviewDto) {
-        if (reviewDto.getCustomerId()== null){
+    @CacheEvict(value = "reviews", allEntries = true)
+    public ReviewResponseDto saveReview(ReviewDto reviewDto) {
+        if (reviewDto.getCustomerId() == null) {
             reviewDto.setCustomerId(AppUtil.getCustomerId());
         }
-        if(reviewDto.getVin()== null){
-            reviewDto.setVin(AppUtil.getVin());
-        }
-        if(reviewDto.getUser()== null){
+
+        if (reviewDto.getUser() == null) {
             reviewDto.setUser(AppUtil.getCurrentUser());
         }
-        reviewRepository.save(toReviewEntity(reviewDto));
-        return reviewDto.getCustomerId();
-    }
-
-    private Review toReviewEntity(ReviewDto reviewDto){
-        return reviewMapper.toReviewEntity(reviewDto);
-    }
-    private ReviewResponseDto toReviewDto(Review review){
+        Review review = reviewRepository.save(toReviewEntity(reviewDto));
         return reviewMapper.toReviewDto(review);
     }
 
-    private List<ReviewsForVehicle>toReviewListDto (List<Review> reviews){
+    private Review toReviewEntity(ReviewDto reviewDto) {
+        return reviewMapper.toReviewEntity(reviewDto);
+    }
+
+    private ReviewResponseDto toReviewDto(Review review) {
+        return reviewMapper.toReviewDto(review);
+    }
+
+    private List<ReviewsForVehicle> toReviewListDto(List<Review> reviews) {
         return reviewMapper.toReviewListDto(reviews);
     }
 
     @Override
-    public List<ReviewsForVehicle> getReviewsByVehicleId(Long vin) {
-
-        Optional<Review> review = reviewRepository.findByVin(vin);
-
-        if(review.isEmpty()){
-            throw new ReviewNotFoundException();
-        }
-        return toReviewListDto(reviewRepository.getAllByVin(vin));
+    public List<ReviewsForVehicle> getReviewsByVehicleId(String vehicleId) {
+        return toReviewListDto(reviewRepository.findAllByVehicleId(vehicleId));
 
     }
 
     @Override
-    public Long getTheAverage() {
-        return averageRating();
+    public Long getTheAverage(String vehicleId) {
+        return averageRating(vehicleId);
     }
 
-    private Long averageRating(){
-        Long noOfReviews = reviewRepository.noOfReview();
-        Long sumOfReviews = reviewRepository.sumOfReviews();
-        return sumOfReviews/noOfReviews;
+    private Long averageRating(String vehicleId) {
+
+        Long noOfReviews = reviewRepository.countAllByVehicleId(vehicleId);
+        List<Review> list = reviewRepository.findAllByVehicleId(vehicleId);
+        int sumOfReviews = list.stream().mapToInt(Review::getRating).sum();
+        return noOfReviews == 0 ? 0 : sumOfReviews / noOfReviews;
 
     }
 
-
+    @Override
+    public ReviewDto findById(String vehicleId) {
+        return null;
+    }
 }

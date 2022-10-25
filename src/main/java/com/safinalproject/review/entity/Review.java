@@ -20,17 +20,17 @@ public class Review implements Serializable {
     private String id;
     private Long customerId;
     private String user;
-    private Long vin;
+    private String vehicleId ;
     @Size(min = 1, max = 10, message = "Between the range 1-10")
     private int rating;
     @NotEmpty(message = "Between the range 1-10")
     private String comment;
     private Long average;
 
-    public Review(Long customerId, String user, Long vin, int rating, String comment) {
+    public Review(Long customerId, String user, String vehicleId, int rating, String comment) {
         this.customerId = customerId;
         this.user = user;
-        this.vin = vin;
+        this.vehicleId = vehicleId;
         this.rating = rating;
         this.comment = comment;
 

@@ -22,24 +22,24 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<?> getAllReviews(){
+    @GetMapping
+    public ResponseEntity<?> getAllReviews() {
         return ResponseEntity.ok(reviewService.getAll());
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addReview(@Valid @RequestBody ReviewDto reviewDto){
-        reviewService.saveReview(reviewDto);
-        return ResponseEntity.ok("validation");
+    @PostMapping
+    public ResponseEntity<?> addReview(@Valid @RequestBody ReviewDto reviewDto) {
+        return ResponseEntity.ok(reviewService.saveReview(reviewDto));
     }
 
-    @GetMapping("/average")
-    public ResponseEntity<?> getAverage(){
-        return ResponseEntity.ok(reviewService.getTheAverage());
+    @GetMapping("/average/{vehicleId}")
+    public ResponseEntity<?> getAverage(@PathVariable String vehicleId) {
+
+        return ResponseEntity.ok(reviewService.getTheAverage(vehicleId));
     }
 
-    @GetMapping("/vehicle/{vin}")
-    public ResponseEntity<?> getVehicleById(@PathVariable Long vin){
-        return ResponseEntity.ok(reviewService.getReviewsByVehicleId(vin));
+    @GetMapping("/vehicle/{vehicleId}")
+    public ResponseEntity<?> getVehicleById(@PathVariable String vehicleId) {
+        return ResponseEntity.ok(reviewService.getReviewsByVehicleId(vehicleId));
     }
 }

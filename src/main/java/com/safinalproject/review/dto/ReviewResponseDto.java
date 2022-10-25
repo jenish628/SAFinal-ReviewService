@@ -13,7 +13,7 @@ public class ReviewResponseDto implements Serializable {
     private String id;
     private Long customerId;
     private String user;
-    private Long vin;
+    private String vehicleId;
     private int rating;
     private String comment;
     private Long average;

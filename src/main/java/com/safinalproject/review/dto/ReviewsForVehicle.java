@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewsForVehicle {
     private String user;
-    private Long vin;
+    private String vehicleId;
     private int rating;
     private String comment;
 }

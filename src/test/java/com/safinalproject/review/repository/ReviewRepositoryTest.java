@@ -27,12 +27,12 @@ class ReviewRepositoryTest {
         //given
         Long cus = AppUtil.getCustomerId();
         String user = AppUtil.getCurrentUser();
-        Long vNum = AppUtil.getVin();
+        String vNum = AppUtil.getVin();
         Review review = new Review(cus,user,vNum,4,"This is a vehicle");
         underTest.save(review);
 
         //when
-        List<Review> reviews = underTest.getAllByVin(vNum);
+        List<Review> reviews = underTest.findAllByVehicleId(vNum);
         Review review1 = reviews.get(0);
 
         //then
@@ -41,16 +41,16 @@ class ReviewRepositoryTest {
 
     @Test
     void DoesNotGetAllByVin(){
-        Long vin = 123456789L;
+        String vin = "1234";
         //given
         Long cus = AppUtil.getCustomerId();
         String user = AppUtil.getCurrentUser();
-        Long vNum = AppUtil.getVin();
+        String vNum = AppUtil.getVin();
         Review review = new Review(cus,user,vNum,4,"This is a vehicle");
         underTest.save(review);
 
         //when
-        List<Review> reviews = underTest.getAllByVin(vin);
+        List<Review> reviews = underTest.findAllByVehicleId(vin);
         Review review1 = reviews.get(0);
 
         //then

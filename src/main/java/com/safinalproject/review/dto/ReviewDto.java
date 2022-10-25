@@ -14,7 +14,7 @@ public class ReviewDto implements Serializable {
     private String id;
     private Long customerId;
     private String user;
-    private Long vin;
+    private String vehicleId;
     @Max(value = 10, message = "Maximum limit exceed {value}")
     @Min(value = 1, message = "Minimum limit {value} must be fulfilled")
     private int rating;

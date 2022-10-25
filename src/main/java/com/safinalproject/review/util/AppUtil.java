@@ -8,7 +8,7 @@ public class AppUtil {
     public static Long getCustomerId(){
         return 1234L;
     }
-    public static Long getVin(){
-        return 7890L;
+    public static String getVin(){
+        return "1234";
     }
 }
