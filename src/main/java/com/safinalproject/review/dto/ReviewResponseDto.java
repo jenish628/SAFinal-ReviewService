@@ -11,8 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ReviewResponseDto implements Serializable {
     private String id;
-    private Long customerId;
-    private String user;
+    private String userId;
     private String vehicleId;
     private int rating;
     private String comment;

@@ -18,8 +18,7 @@ import java.io.Serializable;
 public class Review implements Serializable {
     @Id
     private String id;
-    private Long customerId;
-    private String user;
+    private String userId;
     private String vehicleId ;
     @Size(min = 1, max = 10, message = "Between the range 1-10")
     private int rating;
@@ -27,9 +26,8 @@ public class Review implements Serializable {
     private String comment;
     private Long average;
 
-    public Review(Long customerId, String user, String vehicleId, int rating, String comment) {
-        this.customerId = customerId;
-        this.user = user;
+    public Review( String userId, String vehicleId, int rating, String comment) {
+        this.userId = userId;
         this.vehicleId = vehicleId;
         this.rating = rating;
         this.comment = comment;

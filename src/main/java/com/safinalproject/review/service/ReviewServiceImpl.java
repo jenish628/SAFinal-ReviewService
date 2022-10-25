@@ -42,12 +42,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     @CacheEvict(value = "reviews", allEntries = true)
     public ReviewResponseDto saveReview(ReviewDto reviewDto) {
-        if (reviewDto.getCustomerId() == null) {
-            reviewDto.setCustomerId(AppUtil.getCustomerId());
-        }
 
-        if (reviewDto.getUser() == null) {
-            reviewDto.setUser(AppUtil.getCurrentUser());
+        if (reviewDto.getUserId() == null) {
+            reviewDto.setUserId(AppUtil.getCurrentUser());
         }
         Review review = reviewRepository.save(toReviewEntity(reviewDto));
         return reviewMapper.toReviewDto(review);
